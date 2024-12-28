@@ -411,30 +411,30 @@
                                                 <h5 class="mb-0">Araç Ekleme</h5>
                                             </div>
                                             <div class="card-body">
-                                                <form>
+                                                <form action="/Car/AddCar" method="post">
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-fullname">Marka</label>
-                                                        <input type="text" class="form-control" id="basic-default-fullname" />
+                                                        <input type="text" class="form-control" name="Brand" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Model</label>
-                                                        <input type="text" class="form-control" id="basic-default-company" />
+                                                        <input type="text" class="form-control" name="Model" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Fiyat</label>
-                                                        <input type="text" class="form-control" id="basic-default-company" />
+                                                        <input type="text" class="form-control" name="Price" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Döviz Cinsi</label>
-                                                        <input type="text" class="form-control" id="basic-default-company" />
+                                                        <input type="text" class="form-control" name="Currency" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Türü</label>
-                                                        <input type="text" class="form-control" id="basic-default-company" />
+                                                        <input type="text" class="form-control" name="Style" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Son Bakım</label>
-                                                        <input type="date" class="form-control" id="basic-default-company" />
+                                                        <input type="date" class="form-control" name="RevisionDate" />
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                                 </form>

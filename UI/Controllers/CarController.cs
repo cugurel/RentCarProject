@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EfRepository;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers
@@ -12,10 +13,18 @@ namespace UI.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public IActionResult AddCar()
 		{
 			return View();
 		}
+
+        [HttpPost]
+        public IActionResult AddCar(Car car)
+        {
+			repository.AddCar(car);
+            return RedirectToAction("List", "Car");
+        }
 
         public IActionResult List()
         {
