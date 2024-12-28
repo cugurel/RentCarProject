@@ -1,11 +1,12 @@
 ﻿using DataAccessLayer.Concrete;
+using DataAccessLayer.Concrete.EfRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers
 {
 	public class CarController : Controller
 	{
-		Context c = new Context();
+		EfCarRepository repository = new EfCarRepository();
 		public IActionResult Index()
 		{
 			return View();
@@ -18,8 +19,15 @@ namespace UI.Controllers
 
         public IActionResult List()
         {
-			var values = c.Cars.ToList(); //Linq sorgusu = select * from Cars
+			var values = repository.GetAll();
             return View(values);
+        }
+
+        public IActionResult DeleteCar(int id)
+        {
+            var value = repository.GetById(id);
+			repository.DeleteCar(value);
+			return RedirectToAction("List", "Car");
         }
     }
 }
