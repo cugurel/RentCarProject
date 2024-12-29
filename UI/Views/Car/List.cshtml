@@ -413,7 +413,7 @@
                                 <div class="row">
                                     <div class="col-xl">
                                         <div class="card">
-                                            <h5 class="card-header">Müşteri Listesi</h5>
+                                            <h5 class="card-header">Araç Listesi</h5>
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table">
                                                     <thead>
@@ -421,6 +421,7 @@
                                                             <th>Marka</th>
                                                             <th>Model</th>
                                                             <th>Fiyat</th>
+                                                            <th>Döviz</th>
                                                             <th>Tür</th>
                                                             <th>Son Muayene Tarihi</th>
                                                             <th>İşlemler</th>
@@ -434,6 +435,9 @@
                                                                 <td>@item.Model</td>
                                                                 <td>
                                                                     @item.Price
+                                                                </td>
+                                                                <td>
+                                                                    @item.Currency
                                                                 </td>
                                                                 <td>
                                                                     @item.Style

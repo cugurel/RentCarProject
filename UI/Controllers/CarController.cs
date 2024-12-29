@@ -39,8 +39,6 @@ namespace UI.Controllers
 			return RedirectToAction("List", "Car");
         }
 
-
-		
 		[HttpGet]
 		public IActionResult UpdateCar(int Id)
 		{

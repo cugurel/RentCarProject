@@ -415,6 +415,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <form action="/Car/UpdateCar" method="post">
+                                                    <input type="hidden" class="form-control" name="Id" value="@Model.Id" />
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-fullname">Marka</label>
                                                         <input type="text" class="form-control" name="Brand" value="@Model.Brand"/>
