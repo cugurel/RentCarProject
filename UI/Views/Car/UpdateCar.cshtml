@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model IEnumerable<Car>
+@model Car
 
 
 <!DOCTYPE html>
@@ -8,7 +8,6 @@
       class="light-style layout-menu-fixed"
       dir="ltr"
       data-theme="theme-default"
-      data-~ /template/assets-path ="~/template/assets/"
       data-template="vertical-menu-template-free">
 <head>
     <meta charset="utf-8" />
@@ -30,8 +29,6 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="~/template/assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
     <link rel="stylesheet" href="~/template/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="~/template/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="~/template/assets/css/demo.css" />
@@ -115,7 +112,7 @@
                 @await Html.PartialAsync("~/Views/Shared/_MenuLayout.cshtml")
             </aside>
             <!-- / Menu -->
-            <!-- Layout container -->""
+            <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
 
@@ -412,54 +409,42 @@
                             <div class="col-12 col-md-8 col-lg-12 order-3 order-md-2">
                                 <div class="row">
                                     <div class="col-xl">
-                                        <div class="card">
-                                            <h5 class="card-header">Müşteri Listesi</h5>
-                                            <div class="table-responsive text-nowrap">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Marka</th>
-                                                            <th>Model</th>
-                                                            <th>Fiyat</th>
-                                                            <th>Tür</th>
-                                                            <th>Son Muayene Tarihi</th>
-                                                            <th>İşlemler</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                        @foreach (var item in Model)
-                                                        {
-                                                            <tr>
-                                                                <td>@item.Brand</td>
-                                                                <td>@item.Model</td>
-                                                                <td>
-                                                                    @item.Price
-                                                                </td>
-                                                                <td>
-                                                                    @item.Style
-                                                                </td>
-                                                                <td>
-                                                                    @item.RevisionDate.ToShortDateString()
-                                                                </td>
-                                                                <td>
-                                                                    <div class="dropdown">
-                                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                                        </button>
-                                                                        <div class="dropdown-menu">
-                                                                            <a class="dropdown-item" href="/Car/UpdateCar/@item.Id"><i class="bx bx-edit-alt me-1"></i> Düzenle</a>
-                                                                            <a class="dropdown-item" href="/Car/DeleteCar/@item.Id"><i class="bx bx-trash me-1"></i> Sil</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        }
-
-                                                    </tbody>
-                                                </table>
+                                        <div class="card mb-4">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0">Araç Ekleme</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <form action="/Car/UpdateCar" method="post">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-default-fullname">Marka</label>
+                                                        <input type="text" class="form-control" name="Brand" value="@Model.Brand"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-default-company">Model</label>
+                                                        <input type="text" class="form-control" name="Model" value="@Model.Model" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-default-company">Fiyat</label>
+                                                        <input type="text" class="form-control" name="Price" value="@Model.Price"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-default-company">Döviz Cinsi</label>
+                                                        <input type="text" class="form-control" name="Currency" value="@Model.Currency"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-default-company">Türü</label>
+                                                        <input type="text" class="form-control" name="Style" value="@Model.Style"/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-default-company">Son Bakım</label>
+                                                        <input type="date" class="form-control" name="RevisionDate"  value="@Model.RevisionDate"/>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

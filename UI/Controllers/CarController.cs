@@ -38,5 +38,21 @@ namespace UI.Controllers
 			repository.DeleteCar(value);
 			return RedirectToAction("List", "Car");
         }
-    }
+
+
+		
+		[HttpGet]
+		public IActionResult UpdateCar(int Id)
+		{
+			var value = repository.GetById(Id);
+			return View(value);
+		}
+
+		[HttpPost]
+		public IActionResult UpdateCar(Car car)
+		{
+			repository.UpdateCar(car);
+			return RedirectToAction("List", "Car");
+		}
+	}
 }
