@@ -16,5 +16,6 @@ namespace DataAccessLayer.Concrete
         }
 
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Style> Styles { get; set; }
     }
 }
