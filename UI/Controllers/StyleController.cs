@@ -37,5 +37,19 @@ namespace UI.Controllers
 			styleRepository.AddStyle(style);
 			return RedirectToAction("List", "Style");
         }
-    }
+
+		[HttpGet]
+		public IActionResult UpdateStyle(int id)
+		{
+			var value = styleRepository.GetById(id);
+			return View(value);
+		}
+
+		[HttpPost]
+		public IActionResult UpdateStyle(Style style)
+		{
+			styleRepository.UpdateStyle(style);
+			return RedirectToAction("List", "Style");
+		}
+	}
 }
