@@ -5,6 +5,9 @@ using UI.Models.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication();
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     options.UseSqlServer("server=Cagri; database=RentCarProjectDb; integrated security=true; TrustServerCertificate=True;",
@@ -21,9 +24,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseAuthentication();
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

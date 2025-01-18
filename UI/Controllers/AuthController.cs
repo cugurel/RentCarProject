@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using UI.Models.Identity;
 
 namespace UI.Controllers
@@ -26,8 +27,26 @@ namespace UI.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Login(LoginModel model)
+		public async Task<IActionResult> Login(LoginModel model)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+
+			var user = await _userManager.FindByEmailAsync(model.Email);
+
+			if(user == null)
+			{
+				TempData["LoginError"] = "Bu email ile bir kullanıcı bulunamadı";
+				return View();
+			}
+
+			var result = await _signinManager.PasswordSignInAsync(user, model.Password, false, false);
+			if (result.Succeeded)
+			{
+				return RedirectToAction("List", "Car");
+			}
 			return View();
 		}
 

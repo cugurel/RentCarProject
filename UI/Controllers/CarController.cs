@@ -1,10 +1,13 @@
 ﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EfRepository;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers
 {
+
+	[Authorize]
 	public class CarController : Controller
 	{
 		EfCarRepository repository = new EfCarRepository();
