@@ -1,7 +1,26 @@
-﻿namespace UI.Models.Identity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace UI.Models.Identity
 {
 	public class RegisterModel
 	{
-        public string FirstName { get; set; }
-    }
+		[Required]
+        public string Firstname { get; set; }
+
+		[Required]
+		public string Surname { get; set; }
+
+		[Required]
+		public string Username { get; set; }
+
+		[Required]
+		public string Phone { get; set; }
+
+		[Required]
+		public string Email { get; set; }
+
+		[Required]
+		public string Password { get; set; }
+
+	}
 }
