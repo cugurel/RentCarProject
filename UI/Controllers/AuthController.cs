@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net;
 using UI.Models.Identity;
 
 namespace UI.Controllers
@@ -91,6 +93,12 @@ namespace UI.Controllers
 			}
 
 			return View();
+		}
+
+		public async Task<IActionResult> Logout()
+		{
+			_signinManager.SignOutAsync();
+			return RedirectToAction("Login", "Auth");
 		}
 	}
 }
