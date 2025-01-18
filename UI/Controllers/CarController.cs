@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace UI.Controllers
 {
 
-	[Authorize]
+	
 	public class CarController : Controller
 	{
 		EfCarRepository repository = new EfCarRepository();
@@ -28,8 +28,8 @@ namespace UI.Controllers
 			repository.AddCar(car);
             return RedirectToAction("List", "Car");
         }
-
-        public IActionResult List()
+		[Authorize]
+		public IActionResult List()
         {
 			var values = repository.GetAll();
             return View(values);
