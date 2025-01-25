@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EfRepository;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,28 @@ namespace API.Controllers
 		{
 			var value = repository.GetById(id);
 			return Ok(value);
+		}
+
+		[HttpPost("AddCategory")]
+		public IActionResult AddCategory(Style style)
+		{
+			repository.AddStyle(style);
+			return Ok(style);
+		}
+
+		[HttpDelete("DeleteById/{id}")]
+		public IActionResult DeleteById(int id)
+		{
+			var value = repository.GetById(id);
+			repository.DeleteStyle(value);
+			return Ok("Veri silindi");
+		}
+
+		[HttpPut("UpdateCategory")]
+		public IActionResult UpdateCategory(Style style)
+		{
+			repository.UpdateStyle(style);
+			return Ok(style);
 		}
 	}
 }

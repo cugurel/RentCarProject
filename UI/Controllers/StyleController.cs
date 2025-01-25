@@ -1,21 +1,28 @@
 ﻿using DataAccessLayer.Concrete.EfRepository;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace UI.Controllers
 {
 	public class StyleController : Controller
 	{
 		EfStyleRepository styleRepository = new EfStyleRepository();
+
+		string apiUrl = "https://localhost:7133/api/Category/";
+		HttpClient client = new HttpClient();
 		public IActionResult Index()
 		{
 			return View();
 		}
 
-		public IActionResult List()
+		public async Task<IActionResult> List()
 		{
-			var values = styleRepository.GetAll();
-			return View(values);
+			var result = await client.GetAsync(apiUrl + "GetAllCategories");
+
+			var jsonString = result.Content.ReadAsStringAsync().Result;
+			var styles = JsonConvert.DeserializeObject<List<Style>>(jsonString);
+			return View(styles);
 		}
 
         public IActionResult DeleteStyle(int Id)
