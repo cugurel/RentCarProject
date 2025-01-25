@@ -1,23 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer.Concrete.EfRepository;
+using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers
 {
     public class CustomerController : Controller
     {
+        EfCustomerRepository customerRepository = new EfCustomerRepository();
         public IActionResult Index()
         {
             return View();
         }
 
-
+        [HttpGet]
         public IActionResult AddCustomer()
         {
             return View();
         }
 
-        public IActionResult List()
+		[HttpPost]
+		public IActionResult AddCustomer(Customer customer)
+		{
+            customerRepository.AddCustomer(customer);
+            return RedirectToAction("List", "Customer");
+		}
+
+		public IActionResult List()
         {
-            return View();
-        }
+			var values = customerRepository.GetAll();
+			return View(values);
+		}
     }
 }
