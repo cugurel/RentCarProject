@@ -2,6 +2,7 @@
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace UI.Controllers
 {
@@ -25,11 +26,15 @@ namespace UI.Controllers
 			return View(styles);
 		}
 
-        public IActionResult DeleteStyle(int Id)
+        public async Task<IActionResult> DeleteStyle(int Id)
         {
-            var value = styleRepository.GetById(Id);
-			styleRepository.DeleteStyle(value);
-			return RedirectToAction("List", "Style");
+			var result = await client.DeleteAsync(apiUrl + "DeleteById/" + Id);
+			if (result.IsSuccessStatusCode)
+			{
+				return RedirectToAction("List","Style");
+			}
+
+			return View();
         }
 
 		[HttpGet]
@@ -39,10 +44,16 @@ namespace UI.Controllers
 		}
 
         [HttpPost]
-        public IActionResult AddStyle(Style style)
+        public async Task<IActionResult> AddStyle(Style style)
         {
-			styleRepository.AddStyle(style);
-			return RedirectToAction("List", "Style");
+			var jsonStyle = JsonConvert.SerializeObject(style);
+			StringContent content = new StringContent(jsonStyle, Encoding.UTF8,"application/json");
+			var result = await client.PostAsync(apiUrl + "AddCategory", content);
+			if (result.IsSuccessStatusCode)
+			{
+				return RedirectToAction("List", "Style");
+			}
+			return View();
         }
 
 		[HttpGet]
