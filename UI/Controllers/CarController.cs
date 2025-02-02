@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete.EfRepository;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,13 @@ namespace UI.Controllers
 {
 	public class CarController : Controller
 	{
-		EfCarRepository repository = new EfCarRepository();
+		ICarService _carService;
+
+		public CarController(ICarService carService)
+		{
+			_carService = carService;
+		}
+
 		public IActionResult Index()
 		{
 			return View();
@@ -23,34 +30,34 @@ namespace UI.Controllers
         [HttpPost]
         public IActionResult AddCar(Car car)
         {
-			repository.AddCar(car);
+			_carService.Add(car);
             return RedirectToAction("List", "Car");
         }
 		[Authorize]
 		public IActionResult List()
         {
-			var values = repository.GetAll();
+			var values = _carService.GetAll();
             return View(values);
         }
 
         public IActionResult DeleteCar(int id)
         {
-            var value = repository.GetById(id);
-			repository.DeleteCar(value);
+            var value = _carService.GetById(id);
+			_carService.Delete(value);
 			return RedirectToAction("List", "Car");
         }
 
 		[HttpGet]
 		public IActionResult UpdateCar(int Id)
 		{
-			var value = repository.GetById(Id);
+			var value = _carService.GetById(Id);
 			return View(value);
 		}
 
 		[HttpPost]
 		public IActionResult UpdateCar(Car car)
 		{
-			repository.UpdateCar(car);
+			_carService.Update(car);
 			return RedirectToAction("List", "Car");
 		}
 	}

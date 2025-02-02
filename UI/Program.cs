@@ -1,3 +1,6 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using BusinessLayer.DependencyResolvers.Autofac;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UI.Models.Identity;
@@ -14,6 +17,9 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(60);
 });
+
+
+
 builder.Services.AddIdentity<User,IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -22,6 +28,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 });
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).
+    ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacBusinessModule());
+    });
 
 var app = builder.Build();
 
