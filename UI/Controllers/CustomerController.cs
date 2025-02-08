@@ -52,5 +52,12 @@ namespace UI.Controllers
             _customerService.Update(customer);
             return RedirectToAction("List", "Customer");
         }
+
+        public IActionResult DeleteCustomer(int Id)
+        {
+            var value = _customerService.GetById(Id);
+            _customerService.Delete(value);
+            return RedirectToAction("List", "Customer");
+        }
     }
 }
