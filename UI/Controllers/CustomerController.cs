@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Concrete.EfRepository;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Concrete.EfRepository;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,13 @@ namespace UI.Controllers
 {
     public class CustomerController : Controller
     {
-        EfCustomerRepository customerRepository = new EfCustomerRepository();
+        ICustomerService _customerService;
+
+        public CustomerController(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -21,7 +28,7 @@ namespace UI.Controllers
 		[HttpPost]
 		public IActionResult AddCustomer(Customer customer)
 		{
-            customerRepository.AddCustomer(customer);
+            _customerService.Add(customer);
             return RedirectToAction("List", "Customer");
 		}
 
