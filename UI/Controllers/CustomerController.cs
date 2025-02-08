@@ -34,8 +34,23 @@ namespace UI.Controllers
 
 		public IActionResult List()
         {
-			var values = customerRepository.GetAll();
+			var values = _customerService.GetAll();
 			return View(values);
 		}
+
+
+        [HttpGet]
+        public IActionResult UpdateCustomer(int Id)
+        {
+            var value = _customerService.GetById(Id);
+            return View(value);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCustomer(Customer customer)
+        {
+            _customerService.Update(customer);
+            return RedirectToAction("List", "Customer");
+        }
     }
 }
