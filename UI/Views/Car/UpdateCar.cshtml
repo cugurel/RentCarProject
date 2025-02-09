@@ -438,8 +438,10 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Son Bakım</label>
-                                                        <input type="date" class="form-control" name="RevisionDate"  value="@Model.RevisionDate"/>
+                                                        <input type="date" class="form-control" name="RevisionDate"
+                                                               value="@Model.RevisionDate.ToString("yyyy-MM-dd")" />
                                                     </div>
+
                                                     <button type="submit" class="btn btn-primary">Güncelle</button>
                                                 </form>
                                             </div>

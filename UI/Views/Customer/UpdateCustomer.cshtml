@@ -446,7 +446,13 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-fullname">Tc No</label>
-                                                        <input type="text" class="form-control" name="IdentityNo" value="@Model.IdentityNo" id="basic-default-fullname" />
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               value="@Model.IdentityNo"
+                                                               name="IdentityNo"
+                                                               id="basic-default-revisiondate"
+                                                               maxlength="11"
+                                                               oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 11);" />
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Güncelle</button>
                                                 </form>
@@ -491,6 +497,16 @@
     </div>
     <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+
+    <script>
+        const revisionDateInput = document.getElementById('basic-default-revisiondate');
+
+        revisionDateInput.addEventListener('input', function () {
+            if (this.value.startsWith('0')) {
+                this.value = this.value.substring(1);
+            }
+        });
+    </script>
 
     <script src="~/template/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="~/template/assets/vendor/libs/popper/popper.js"></script>
