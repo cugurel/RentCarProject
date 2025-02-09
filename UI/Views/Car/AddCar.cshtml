@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using EntityLayer.Concrete
+@model Car
+
+<!DOCTYPE html>
 
 <html lang="en"
       class="light-style layout-menu-fixed"
@@ -430,10 +433,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="timeZones" class="form-label">Araç Türü</label>
-                                                        <select id="timeZones" class="select2 form-select">
-                                                            <option value="">Select Timezone</option>
-                                                            <option value="-12">(GMT-12:00) International Date Line West</option>
-                                                        </select>
+                                                        @Html.DropDownListFor(x => x.Style, (List<SelectListItem>)ViewBag.StyleList, "Tür Seçiniz", new { @name = "Style", @class = "select2 form-select" })
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Son Bakım</label>

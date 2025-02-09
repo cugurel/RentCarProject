@@ -32,7 +32,7 @@ namespace UI.Controllers
 											  select new SelectListItem
 											  {
 												  Text = x.Type + " " + x.TypeName,
-												  Value = x.Id.ToString(),
+												  Value = x.Type.ToString(),
 											  }).ToList();
 
 			ViewBag.StyleList = styleList;
@@ -46,7 +46,7 @@ namespace UI.Controllers
                                               select new SelectListItem
                                               {
                                                   Text = x.Type + " " + x.TypeName,
-                                                  Value = x.Id.ToString(),
+                                                  Value = x.Type.ToString(),
                                               }).ToList();
 
             ViewBag.StyleList = styleList;
@@ -75,7 +75,7 @@ namespace UI.Controllers
                                               select new SelectListItem
                                               {
                                                   Text = x.Type + " " + x.TypeName,
-                                                  Value = x.Id.ToString(),
+                                                  Value = x.Type.ToString(),
                                               }).ToList();
 
             ViewBag.StyleList = styleList;
@@ -90,7 +90,7 @@ namespace UI.Controllers
                                               select new SelectListItem
                                               {
                                                   Text = x.Type + " " + x.TypeName,
-                                                  Value = x.Id.ToString(),
+                                                  Value = x.Type.ToString(),
                                               }).ToList();
 
             ViewBag.StyleList = styleList;

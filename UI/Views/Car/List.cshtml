@@ -424,7 +424,8 @@
                                                             <th>Döviz</th>
                                                             <th>Tür</th>
                                                             <th>Son Muayene Tarihi</th>
-                                                            <th>İşlemler</th>
+                                                            <th>Düzenle</th>
+                                                            <th>Sil</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0">
@@ -446,15 +447,10 @@
                                                                     @item.RevisionDate.ToShortDateString()
                                                                 </td>
                                                                 <td>
-                                                                    <div class="dropdown">
-                                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                                        </button>
-                                                                        <div class="dropdown-menu">
-                                                                            <a class="dropdown-item" href="/Car/UpdateCar/@item.Id"><i class="bx bx-edit-alt me-1"></i> Düzenle</a>
-                                                                            <a class="dropdown-item" href="/Car/DeleteCar/@item.Id"><i class="bx bx-trash me-1"></i> Sil</a>
-                                                                        </div>
-                                                                    </div>
+                                                                    <a href="/Car/UpdateCar/@item.Id" class="btn btn-sm btn-success">Düzenle</a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="/Car/DeleteCar/@item.Id" class="btn btn-sm btn-danger">Sil</a>
                                                                 </td>
                                                             </tr>
                                                         }

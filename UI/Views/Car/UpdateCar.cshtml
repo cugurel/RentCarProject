@@ -433,8 +433,8 @@
                                                         <input type="text" class="form-control" name="Currency" value="@Model.Currency"/>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="basic-default-company">Türü</label>
-                                                        <input type="text" class="form-control" name="Style" value="@Model.Style"/>
+                                                        <label for="timeZones" class="form-label">Araç Türü</label>
+                                                        @Html.DropDownListFor(x => x.Style, (List<SelectListItem>)ViewBag.StyleList, "Tür Seçiniz", new { @name = "Style", @class = "select2 form-select", @value=Model.Style})
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-company">Son Bakım</label>
