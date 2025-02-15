@@ -74,5 +74,22 @@ namespace UI.Controllers
             }
 			return RedirectToAction("List", "User");
 		}
-	}
+
+        public async Task<IActionResult> ApproveUser(string id)
+        {
+            
+            var user = await _userManager.FindByIdAsync(id);
+
+            user.Status = true;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessRegister"] = "Kayıt başarılı!";
+                return RedirectToAction("List", "User");
+            }
+            return RedirectToAction("List", "User");
+        }
+    }
 }
