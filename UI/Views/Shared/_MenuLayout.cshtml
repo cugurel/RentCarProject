@@ -83,6 +83,11 @@
                     <div data-i18n="Account">Kullanıcı Listesi</div>
                 </a>
             </li>
+            <li class="menu-item @(currentController == "User" && currentAction=="UnApprovedUserList" ? "active" : "")">
+                <a href="/User/UnApprovedUserList" class="menu-link">
+                    <div data-i18n="Account">Onay Listesi</div>
+                </a>
+            </li>
             <li class="menu-item @(currentController == "User" && currentAction=="AddUser" ? "active" : "")">
                 <a href="/User/AddUser" class="menu-link">
                     <div data-i18n="Notifications">Kullanıcı Ekle</div>

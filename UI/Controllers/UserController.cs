@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UI.Models.Identity;
 
 namespace UI.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         UserManager<User> _userManager;
 
+		
         public UserController(UserManager<User> userManager)
         {
             _userManager = userManager;
@@ -20,7 +23,13 @@ namespace UI.Controllers
 
         public IActionResult List()
         {
-            var users = _userManager.Users.ToList();
+            var users = _userManager.Users.Where(x => x.Status == true).ToList();
+            return View(users);
+        }
+
+        public IActionResult UnApprovedUserList()
+        {
+            var users = _userManager.Users.Where(x=>x.Status==false).ToList();
             return View(users);
         }
 
@@ -61,9 +70,9 @@ namespace UI.Controllers
 			if (result.Succeeded)
 			{
 				TempData["SuccessRegister"] = "Kayıt başarılı!";
-				return RedirectToAction("Login", "Auth");
-			}
-			return View();
+                return RedirectToAction("List", "User");
+            }
+			return RedirectToAction("List", "User");
 		}
 	}
 }

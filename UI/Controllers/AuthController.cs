@@ -61,6 +61,7 @@ namespace UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterModel model)
 		{
+			model.Status = false;
 			if (!ModelState.IsValid)
 			{
 				return View();
@@ -72,7 +73,8 @@ namespace UI.Controllers
 				LastName = model.Surname,
 				Email = model.Email,
 				PhoneNumber = model.Phone,
-				UserName = model.Username
+				UserName = model.Username,
+				Status = model.Status
 			};
 
 

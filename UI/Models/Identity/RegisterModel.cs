@@ -21,6 +21,8 @@ namespace UI.Models.Identity
 
 		[Required]
 		public string Password { get; set; }
+		[Required]
+		public bool Status { get; set; }
 
 	}
 }
