@@ -1,4 +1,5 @@
 ﻿using EntityLayer.Concrete;
+using EntityLayer.Concrete.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace DataAccessLayer.Abstract
         void DeleteCar(Car car);
         Car GetById(int Id);
         List<Car> GetAll();
+        List<CarStyleDto> GetAllCarsWithStyle();
     }
 }

@@ -18,7 +18,13 @@ namespace UI.Controllers
 			return View();
 		}
 
-		[HttpGet]
+        public IActionResult List()
+        {
+			var rentList = _rentService.GetAll();
+            return View(rentList);
+        }
+
+        [HttpGet]
 		public IActionResult AddRent()
 		{
 			return View();

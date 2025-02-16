@@ -57,7 +57,7 @@ namespace UI.Controllers
 		[Authorize]
 		public IActionResult List()
         {
-			var values = _carService.GetAll();
+			var values = _carService.GetAllCarsWithStyle();
             return View(values);
         }
 

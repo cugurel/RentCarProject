@@ -1,8 +1,7 @@
-﻿@using EntityLayer.Concrete.Dto
-@model IEnumerable<CarStyleDto>
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Rent>
 
 <!DOCTYPE html>
-
 <html lang="en"
       class="light-style layout-menu-fixed"
       dir="ltr"
@@ -18,7 +17,6 @@
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="~/template/assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
@@ -417,12 +415,11 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>Marka</th>
-                                                            <th>Model</th>
-                                                            <th>Fiyat</th>
-                                                            <th>Döviz</th>
-                                                            <th>Tür</th>
-                                                            <th>Son Muayene Tarihi</th>
+                                                            <th>İsim</th>
+                                                            <th>TC Kimlik</th>
+                                                            <th>Araba</th>
+                                                            <th>Başlangıç Tarihi</th>
+                                                            <th>Bitiş Tarihi</th>
                                                             <th>Düzenle</th>
                                                             <th>Sil</th>
                                                         </tr>
@@ -431,25 +428,23 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr>
-                                                                <td>@item.Brand</td>
-                                                                <td>@item.Model</td>
+                                                                <td>@item.CustomerName</td>
+                                                                <td>@item.CustomerIdentity</td>
                                                                 <td>
-                                                                    @item.Price
+                                                                    @item.CarInfo
                                                                 </td>
                                                                 <td>
-                                                                    @item.Currency
+                                                                    @item.StartDate.ToShortDateString()
                                                                 </td>
                                                                 <td>
-                                                                    @item.TypeName
+                                                                    @item.FinishDate.ToShortDateString()
+                                                                </td>
+                                                                
+                                                                <td>
+                                                                    <a href="/Rent/UpdateRent/@item.Id" class="btn btn-sm btn-success">Düzenle</a>
                                                                 </td>
                                                                 <td>
-                                                                    @item.RevisionDate.ToShortDateString()
-                                                                </td>
-                                                                <td>
-                                                                    <a href="/Car/UpdateCar/@item.Id" class="btn btn-sm btn-success">Düzenle</a>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="/Car/DeleteCar/@item.Id" class="btn btn-sm btn-danger">Sil</a>
+                                                                    <a href="/Rent/DeleteRent/@item.Id" class="btn btn-sm btn-danger">Sil</a>
                                                                 </td>
                                                             </tr>
                                                         }
