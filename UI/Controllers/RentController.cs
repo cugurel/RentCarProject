@@ -36,5 +36,27 @@ namespace UI.Controllers
 			_rentService.Add(rent);
 			return View();
 		}
-	}
+
+        public IActionResult DeleteRent(int id)
+        {
+            var values = _rentService.GetById(id);
+            _rentService.Delete(values);
+            return RedirectToAction("List","Rent");
+        }
+
+
+        [HttpGet]
+        public IActionResult UpdateRent(int id)
+        {
+            var value = _rentService.GetById(id);
+            return View(value);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateRent(Rent rent)
+        {
+            _rentService.Update(rent);
+            return RedirectToAction("List", "Rent");
+        }
+    }
 }
