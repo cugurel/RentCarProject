@@ -21,5 +21,25 @@ namespace UI.Controllers
             var roles = await _roleManager.Roles.ToListAsync();
             return View(roles);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRole(RoleModel roleModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _roleManager.CreateAsync(new IdentityRole(roleModel.Name));
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Role");
+                }
+            }
+            return View();
+        }
     }
 }
