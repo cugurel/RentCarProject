@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<IdentityRole>
+﻿@using UI.Models.Identity
+@model RoleDetails
+
 
 <!DOCTYPE html>
+
 <html lang="en"
       class="light-style layout-menu-fixed"
       dir="ltr"
@@ -17,6 +19,7 @@
 
     <meta name="description" content="" />
 
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="~/template/assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
@@ -27,8 +30,6 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="~/template/assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
     <link rel="stylesheet" href="~/template/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="~/template/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="~/template/assets/css/demo.css" />
@@ -112,7 +113,7 @@
                 @await Html.PartialAsync("~/Views/Shared/_MenuLayout.cshtml")
             </aside>
             <!-- / Menu -->
-            <!-- Layout container -->""
+            <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
 
@@ -199,9 +200,9 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/Auth/Logout">
+                                        <a class="dropdown-item" href="auth-login-basic.html">
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Çıkış Yap</span>
+                                            <span class="align-middle">Log Out</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -409,32 +410,65 @@
                             <div class="col-12 col-md-8 col-lg-12 order-3 order-md-2">
                                 <div class="row">
                                     <div class="col-xl">
-                                        <div class="card">
-                                            <h5 class="card-header">Rol Listesi</h5>
-                                            <div class="table-responsive text-nowrap">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Rol Adı</th>
-                                                            <th>Düzenle</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                        @foreach (var item in Model)
+                                        <div class="card mb-4">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0">Rol Detayı</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <form action="/Role/UpdateRole" method="post">
+                                                    <input type="hidden" name="RoleId" value="@Model.Role.Id" />    
+                                                    <input type="hidden" name="RoleName" value="@Model.Role.Name" />
+                                                    <h6>@Model.Role.Name rolüne kullanıcı ata</h6>
+                                                    <table class="table table-bordered">
+                                                        @if (Model.NonMembers.Count() == 0)
                                                         {
                                                             <tr>
-                                                                <td>@item.Name</td>
-                                                                <td>
-                                                                    <a href="/Role/UpdateRole/@item.Id" class="btn btn-sm btn-success">Düzenle</a>
-                                                                </td>
-                                                                
+                                                                <td>Bütün kullanıcılar role ait</td>
+                                                            </tr>
+                                                        }else{
+                                                            @foreach (var user in Model.NonMembers)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @user.FirstName @user.LastName
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="checkbox" name="IdsToAdd" value="@user.Id" />
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </table>
+                                                    </hr>
+                                                    <h6>@Model.Role.Name rolünden kullanıcı sil</h6>
+                                                    <table>
+                                                        @if (Model.Members.Count() == 0)
+                                                        {
+                                                            <tr>
+                                                                <td>Bu role ait kullıcı yok</td>
                                                             </tr>
                                                         }
-                                                    </tbody>
-                                                </table>
+                                                        else
+                                                        {
+                                                            @foreach (var user in Model.Members)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @user.FirstName @user.LastName
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="checkbox" name="IdsToDelete" value="@user.Id" />
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </table>
+                                                    <button type="submit" class="btn btn-sm btn-primary">Atamayı güncelle</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -472,7 +506,15 @@
     </div>
     <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <script>
+        const revisionDateInput = document.getElementById('basic-default-revisiondate');
 
+        revisionDateInput.addEventListener('input', function () {
+            if (this.value.startsWith('0')) {
+                this.value = this.value.substring(1);
+            }
+        });
+    </script>
     <script src="~/template/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="~/template/assets/vendor/libs/popper/popper.js"></script>
     <script src="~/template/assets/vendor/js/bootstrap.js"></script>

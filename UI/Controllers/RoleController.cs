@@ -48,5 +48,28 @@ namespace UI.Controllers
             await _roleManager.DeleteAsync(role);
             return RedirectToAction("Index", "Role");
         }
+
+        public async Task<IActionResult> UpdateRole(string Id)
+        {
+            var role = await _roleManager.FindByIdAsync(Id);
+
+            var members = new List<User>();
+            var nonMembers = new List<User>();
+
+            foreach (var user in _userManager.Users)
+            {
+                var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+                list.Add(user);
+            }
+
+            var model = new RoleDetails()
+            {
+                Role = role,
+                Members = members,
+                NonMembers = nonMembers
+            };
+
+            return View(model);
+        }
     }
 }
