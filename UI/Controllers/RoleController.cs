@@ -41,5 +41,12 @@ namespace UI.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> DeleteRole(string Id)
+        {
+            var role = await _roleManager.FindByIdAsync(Id);
+            await _roleManager.DeleteAsync(role);
+            return RedirectToAction("Index", "Role");
+        }
     }
 }
