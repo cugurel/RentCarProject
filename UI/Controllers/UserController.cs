@@ -97,5 +97,28 @@ namespace UI.Controllers
             }
             return RedirectToAction("List", "User");
         }
-    }
+
+		public async Task<IActionResult> UpdateUserDetail(UserEditModel model)
+		{
+
+			var user = await _userManager.FindByIdAsync(model.UserId);
+
+            if(user == null)
+            {
+                return View();
+            }
+
+            user.FirstName = model.Name;
+            user.LastName = model.Surname;
+            user.PhoneNumber = model.Phone;
+
+			var result = await _userManager.UpdateAsync(user);
+
+			if (result.Succeeded)
+			{
+				return RedirectToAction("Index", "User");
+			}
+			return RedirectToAction("Index", "User");
+		}
+	}
 }
