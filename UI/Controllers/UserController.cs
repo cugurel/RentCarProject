@@ -9,16 +9,22 @@ namespace UI.Controllers
     public class UserController : Controller
     {
         UserManager<User> _userManager;
+        SignInManager<User> _signingManager;
+        RoleManager<IdentityRole> _roleManager;
 
 		
-        public UserController(UserManager<User> userManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _signingManager = signInManager;
+            _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            return View(user);
         }
 
         public IActionResult List()
