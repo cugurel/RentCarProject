@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UI.Models.Identity;
@@ -11,7 +13,7 @@ namespace UI.Controllers
         UserManager<User> _userManager;
         SignInManager<User> _signingManager;
         RoleManager<IdentityRole> _roleManager;
-
+        Context context = new Context();
 		
         public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
@@ -120,5 +122,34 @@ namespace UI.Controllers
 			}
 			return RedirectToAction("Index", "User");
 		}
+
+
+
+		[HttpPost]
+        public async Task<IActionResult> UploadPhoto(UserImage userImage)
+        {
+            if (userImage.File != null)
+            {
+                var item = userImage.File;
+                var extendOfItem = Path.GetExtension(item.FileName);
+                var randomNameItem = ($"{Guid.NewGuid()}{extendOfItem}");
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\UserImages", randomNameItem);
+
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await item.CopyToAsync(stream);
+                }
+
+                UserImage image = new UserImage();
+                image.UserId = userImage.UserId;
+                image.ImagePath = randomNameItem;
+                context.UserImages.Add(image);
+                context.SaveChanges();
+				return RedirectToAction("Index", "User");
+
+			}
+            return View();
+        }
 	}
 }

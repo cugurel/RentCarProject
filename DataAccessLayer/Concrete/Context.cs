@@ -19,5 +19,6 @@ namespace DataAccessLayer.Concrete
         public DbSet<Style> Styles { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rent> Rents { get; set; }
+        public DbSet<UserImage> UserImages { get; set; }
     }
 }

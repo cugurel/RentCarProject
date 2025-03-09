@@ -541,28 +541,33 @@
                                
                                 <div class="card mb-4">
                                     <div class="card-body">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <img src="~/template/assets/img/avatars/1.png"
-                                                 alt="user-avatar"
-                                                 class="d-block rounded"
-                                                 height="100"
-                                                 width="100"
-                                                 id="uploadedAvatar" />
-                                            <div class="button-wrapper">
-                                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                    <span class="d-none d-sm-block">Yeni Fotoğrag Ekle</span>
-                                                    <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file"
-                                                           id="upload"
-                                                           class="account-file-input"
-                                                           hidden
-                                                           accept="image/png, image/jpeg" />
-                                                </label>
-                                               
+                                        <form action="/User/UploadPhoto" method="post" enctype="multipart/form-data">
+                                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                                <input type="hidden" name="UserId" value="@Model.Id" />
+                                                <img src="~/template/assets/img/avatars/1.png"
+                                                     alt="user-avatar"
+                                                     class="d-block rounded"
+                                                     height="100"
+                                                     width="100"
+                                                     id="uploadedAvatar" />
+                                                <div class="button-wrapper">
+                                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                        <span class="d-none d-sm-block">Yeni Fotoğrag Ekle</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input type="file"
+                                                               name="File"
+                                                               id="upload"
+                                                               class="account-file-input"
+                                                               hidden />
+                                                    </label>
 
-                                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+
+                                                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <button type="submit" class="btn btn-primary me-2 mt-2">Güncelle</button>
+
+                                        </form>
                                     </div>
                                     <hr class="my-0" />
                                     <div class="card-body">
