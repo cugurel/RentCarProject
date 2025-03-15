@@ -26,6 +26,9 @@ namespace UI.Controllers
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
+
+            var userImage = context.UserImages.FirstOrDefault(x => x.UserId == userId);
+            //ViewBag.ImageName = userImage.ImagePath;
             return View(user);
         }
 
@@ -150,6 +153,30 @@ namespace UI.Controllers
 
 			}
             return View();
+        }
+
+        [HttpPost]
+		public async Task<IActionResult> ChangePassword(string Password, string NewPassword)
+        {
+			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var isPasswordValid = await _userManager.CheckPasswordAsync(user, Password);
+                if (!isPasswordValid)
+                {
+                    TempData["ErrorMessageChangePassword"] = "Mevcut şifre hatalı!";
+                    return RedirectToAction("Index", "User");
+                }
+
+                var result = await _userManager.ChangePasswordAsync(user, Password, NewPassword);
+                if (result.Succeeded)
+                {
+					TempData["SuccessMessageChangePassword"] = "Şifre değiştirme başarılı!";
+					return RedirectToAction("Index", "User");
+				}
+            }
+			return View();
         }
 	}
 }

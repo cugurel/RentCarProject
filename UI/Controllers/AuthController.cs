@@ -102,5 +102,30 @@ namespace UI.Controllers
 			_signinManager.SignOutAsync();
 			return RedirectToAction("Login", "Auth");
 		}
-	}
+
+		[HttpPost]
+        public async Task<IActionResult> ResetPassword(string email, string password)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+			if (user == null)
+			{
+				TempData["NotUser"] = "Sistemde bu email ile kullanıcı yok.";
+                return RedirectToAction("Login", "Auth");
+            }
+			else
+			{
+				string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+				var result = await _userManager.ResetPasswordAsync(user, resetToken, password);
+
+				if (result.Succeeded)
+				{
+                    TempData["PasswordResetSuccess"] = "Parola sıfırlama başarılı.";
+                    return RedirectToAction("Login", "Auth");
+                }
+			}
+
+            return RedirectToAction("Login", "Auth");
+        }
+    }
 }

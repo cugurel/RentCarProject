@@ -79,13 +79,42 @@
                                 <span>Hesap Oluşturun</span>
                             </a>
                         </p>
+                        <p class="text-center">
+                            <span>Şifrenizi mi unuttunuz?</span>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+                                <span>Parola sıfırlama</span>
+                            </a>
+                        </p>
+
                     </div>
                 </div>
                 <!-- /Register -->
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetPasswordModalLabel">Parola Sıfırlama</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="resetPasswordForm" method="post" action="/Auth/ResetPassword">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-Posta Adresiniz</label>
+                            <input type="email" class="form-control" name="email" placeholder="E-posta adresinizi girin" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Yeni Şifre</label>
+                            <input type="password" class="form-control" name="password" placeholder="Yeni şifrenizi girin" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Şifreyi Sıfırla</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <script src="~/template/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="~/template/assets/vendor/libs/popper/popper.js"></script>

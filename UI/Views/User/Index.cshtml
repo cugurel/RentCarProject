@@ -1,6 +1,9 @@
 ﻿@using UI.Models.Identity
 @model User
-
+@{
+    var changePasswordSuccessMessage = TempData["SuccessMessageChangePassword"] as string;
+    var changePasswordErrorMessage = TempData["ErrorMessageChangePassword"] as string;
+}
 <!DOCTYPE html>
 
 <html lang="en"
@@ -41,7 +44,7 @@
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="~/template/assets/vendor/js/helpers.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="~/template/assets/js/config.js"></script>
@@ -527,7 +530,19 @@
                         </ul>
                     </div>
                 </nav>
-
+                <script>
+                    var changePasswordSuccessMessageContent = '@Html.Raw(changePasswordSuccessMessage)';
+                    console.log(changePasswordSuccessMessageContent);
+                    if (changePasswordSuccessMessageContent) {
+                        Swal.fire({
+                            icon:'success',
+                            title:'Başarılı',
+                            text: changePasswordSuccessMessageContent,
+                            confirmButtonText = 'Tamam',
+                            allowOutsideClick =false
+                        });
+                    }
+                </script>
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -538,13 +553,13 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                               
+
                                 <div class="card mb-4">
                                     <div class="card-body">
                                         <form action="/User/UploadPhoto" method="post" enctype="multipart/form-data">
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
                                                 <input type="hidden" name="UserId" value="@Model.Id" />
-                                                <img src="~/template/assets/img/avatars/1.png"
+                                                <img src="~/Files/UserImages/@ViewBag.ImageName"
                                                      alt="user-avatar"
                                                      class="d-block rounded"
                                                      height="100"
@@ -560,8 +575,6 @@
                                                                class="account-file-input"
                                                                hidden />
                                                     </label>
-
-
                                                     <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                                                 </div>
                                             </div>
@@ -593,8 +606,7 @@
                                                            readonly
                                                            id="email"
                                                            name="Email"
-                                                           value="@Model.Email"
-                                                            />
+                                                           value="@Model.Email" />
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="organization" class="form-label">Telefon</label>
@@ -603,15 +615,36 @@
                                                            name="Phone"
                                                            value="@Model.PhoneNumber" />
                                                 </div>
-                                                
-                                            <div class="mt-2">
-                                                <button type="submit" class="btn btn-primary me-2">Güncelle</button>
+
+                                                <div class="mt-2">
+                                                    <button type="submit" class="btn btn-primary me-2">Güncelle</button>
+                                                </div>
+                                        </form>
+                                        <hr class="my-5" />
+
+                                        <form method="post" action="/User/ChangePassword">
+                                            <input type="hidden" name="UserId" value="@Model.Id" />
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="firstName" class="form-label">Mevcut Şifre</label>
+                                                    <input class="form-control"
+                                                           type="password"
+                                                           name="Password"
+                                                           autofocus />
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="lastName" class="form-label">Yeni Şifre</label>
+                                                    <input class="form-control" type="password" name="NewPassword" />
+                                                </div>
+
+                                                <div class="mt-2">
+                                                    <button type="submit" class="btn btn-primary me-2">Şifre Güncelle</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
-                                    <!-- /Account -->
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
