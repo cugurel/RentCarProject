@@ -178,5 +178,13 @@ namespace UI.Controllers
             }
 			return View();
         }
+
+		public async Task<IActionResult> DeleteUser(string Id)
+		{
+
+			var user = await _userManager.FindByIdAsync(Id);
+            await _userManager.DeleteAsync(user);
+			return RedirectToAction("UnApprovedUserList", "User");
+		}
 	}
 }

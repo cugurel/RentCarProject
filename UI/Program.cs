@@ -35,6 +35,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).
         builder.RegisterModule(new AutofacBusinessModule());
     });
 
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

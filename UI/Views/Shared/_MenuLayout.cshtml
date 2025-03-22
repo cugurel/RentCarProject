@@ -96,7 +96,7 @@
 
 
 
-    @if (!User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin"))
     {
         <li class="menu-item @(currentController == "User" ? "active open" : "")">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

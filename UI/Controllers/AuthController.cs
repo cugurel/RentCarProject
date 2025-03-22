@@ -37,8 +37,8 @@ namespace UI.Controllers
 			}
 
 			var user = await _userManager.FindByEmailAsync(model.Email);
-
-			if(user == null)
+			
+			if(user == null || user.Status==false)
 			{
 				TempData["LoginError"] = "Bu email ile bir kullanıcı bulunamadı";
 				return View();
